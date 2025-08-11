@@ -1,15 +1,20 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package ec.edu.espol.tarea3;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import ec.edu.espol.tarea3.estadosTipos.Resultado;
 
 /**
  *
@@ -36,18 +41,34 @@ public class ClienteTest {
     public void tearDown() {
     }
 
+    // Stub para ManejadorIncidente
+    static class ManejadorIncidenteStub extends ManejadorIncidente {
+        Resultado resultadoEsperado;
+        Incidente incidenteRecibido;
+
+        public ManejadorIncidenteStub(Resultado resultadoEsperado) {
+            this.resultadoEsperado = resultadoEsperado;
+        }
+
+        @Override
+        public Resultado manejar(Incidente incidente) {
+            this.incidenteRecibido = incidente;
+            return resultadoEsperado;
+        }
+    }
+
     /**
      * Test of crearReserva method, of class Cliente.
      */
     @Test
     public void testCrearReserva() {
         System.out.println("crearReserva");
-        Cliente instance = null;
-        Reserva expResult = null;
-        Reserva result = instance.crearReserva();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ManejadorIncidenteStub manejadorStub = new ManejadorIncidenteStub(Resultado.RESUELTO);
+        Cliente cliente = new Cliente(manejadorStub);
+
+        Reserva reserva = cliente.crearReserva();
+        assertNotNull(reserva);
+        assertTrue(reserva.getPrecioTotal() > 0);
     }
 
     /**
@@ -56,13 +77,15 @@ public class ClienteTest {
     @Test
     public void testReportarIncidente() {
         System.out.println("reportarIncidente");
-        String descripcion = "";
-        Cliente instance = null;
-        Object expResult = null;
-        Object result = instance.reportarIncidente(descripcion);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ManejadorIncidenteStub manejadorStub = new ManejadorIncidenteStub(Resultado.RESUELTO);
+        Cliente cliente = new Cliente(manejadorStub);
+
+        String descripcion = "Problema en la habitación";
+        Resultado resultado = cliente.reportarIncidente(descripcion);
+
+        assertEquals(Resultado.RESUELTO, resultado);
+        assertNotNull(manejadorStub.incidenteRecibido);
+        assertEquals(descripcion, manejadorStub.incidenteRecibido.getDescripcion());
     }
     
 }

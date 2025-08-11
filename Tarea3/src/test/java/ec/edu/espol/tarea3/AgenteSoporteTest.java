@@ -4,13 +4,14 @@
  */
 package ec.edu.espol.tarea3;
 
-import ec.edu.espol.tarea3.estadosTipos.Resultado;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import ec.edu.espol.tarea3.estadosTipos.Resultado;
 
 /**
  *
@@ -42,14 +43,43 @@ public class AgenteSoporteTest {
      */
     @Test
     public void testManejar() {
-        System.out.println("manejar");
-        Incidente incidente = null;
         AgenteSoporte instance = new AgenteSoporte();
-        Resultado expResult = null;
+        Incidente incidente = new Incidente("INC-0", "Incidente simple: luz no funciona");
+        Resultado expResult = Resultado.RESUELTO;
         Resultado result = instance.manejar(incidente);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
+    @Test
+    void testManejarIncidenteSimple() {
+        AgenteSoporte agente = new AgenteSoporte();
+        Incidente incidente = new Incidente("INC-1", "Incidente simple: TV no prende");
+        Resultado resultado = agente.manejar(incidente);
+        assertEquals(Resultado.RESUELTO, resultado);
+    }
+
+    @Test
+    void testManejarIncidenteNoResueltoSinSiguiente() {
+        AgenteSoporte agente = new AgenteSoporte();
+        Incidente incidente = new Incidente("INC-2", "Incidente complejo: fuga de agua");
+        Resultado resultado = agente.manejar(incidente);
+        assertEquals(Resultado.NO_RESUELTO, resultado);
+    }
+
+    @Test
+    void testManejarIncidenteNoResueltoConSiguiente() {
+        AgenteSoporte agente = new AgenteSoporte();
+        // Stub para siguiente manejador
+        ManejadorIncidente siguienteStub = new ManejadorIncidente() {
+            @Override
+            public Resultado manejar(Incidente incidente) {
+                return Resultado.RESUELTO;
+            }
+        };
+        agente.setSiguiente(siguienteStub);
+
+        Incidente incidente = new Incidente("INC-3", "Incidente complejo: fuga de agua");
+        Resultado resultado = agente.manejar(incidente);
+        assertEquals(Resultado.RESUELTO, resultado);
+    }
 }

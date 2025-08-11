@@ -20,33 +20,43 @@ public class EmailNotificacionTest {
     public EmailNotificacionTest() {
     }
     
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+    // Stub para Reserva
+    static class ReservaStub extends Reserva {
+        private final String id;
+        private final String estado;
+
+        public ReservaStub(String id, String estado) {
+            super(null); // No necesitamos el paquete para esta prueba
+            this.id = id;
+            this.estado = estado;
+        }
+
+        @Override
+        public String getId() {
+            return id;
+        }
+
+        @Override
+        public String getEstado() {
+            return estado;
+        }
     }
 
-    /**
-     * Test of actualizar method, of class EmailNotificacion.
-     */
     @Test
-    public void testActualizar() {
-        System.out.println("actualizar");
-        Reserva reserva = null;
-        EmailNotificacion instance = new EmailNotificacion();
-        instance.actualizar(reserva);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testActualizarImprimeMensajeCorrecto() {
+        EmailNotificacion email = new EmailNotificacion();
+        ReservaStub reserva = new ReservaStub("R-123", "CONFIRMADA");
+
+        // Captura la salida estándar
+        java.io.ByteArrayOutputStream outContent = new java.io.ByteArrayOutputStream();
+        System.setOut(new java.io.PrintStream(outContent));
+
+        email.actualizar(reserva);
+
+        String expected = "Email: Reserva R-123 - Estado: CONFIRMADA" + System.lineSeparator();
+        assertEquals(expected, outContent.toString());
+
+        // Restaurar System.out
+        System.setOut(System.out);
     }
-    
 }
