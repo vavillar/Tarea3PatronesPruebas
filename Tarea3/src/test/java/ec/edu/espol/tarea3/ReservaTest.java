@@ -65,43 +65,6 @@ public class ReservaTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getPrecioTotal method, of class Reserva.
-     */
-    @Test
-    public void testGetPrecioTotal() {
-        System.out.println("getPrecioTotal");
-        Reserva instance = null;
-        double expResult = 0.0;
-        double result = instance.getPrecioTotal();
-        assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of confirmar method, of class Reserva.
-     */
-    @Test
-    public void testConfirmar() {
-        System.out.println("confirmar");
-        Reserva instance = null;
-        instance.confirmar();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of cancelar method, of class Reserva.
-     */
-    @Test
-    public void testCancelar() {
-        System.out.println("cancelar");
-        Reserva instance = null;
-        instance.cancelar();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of agregarObservador method, of class Reserva.
@@ -112,6 +75,33 @@ public class ReservaTest {
         ObservadorReserva o = null;
         Reserva instance = null;
         instance.agregarObservador(o);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPaquete method, of class Reserva.
+     */
+    @Test
+    public void testGetPaquete() {
+        System.out.println("getPaquete");
+        Reserva instance = null;
+        PaqueteCompuesto expResult = null;
+        PaqueteCompuesto result = instance.getPaquete();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setEstado method, of class Reserva.
+     */
+    @Test
+    public void testSetEstado() {
+        System.out.println("setEstado");
+        EstadoReserva estado = null;
+        Reserva instance = null;
+        instance.setEstado(estado);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

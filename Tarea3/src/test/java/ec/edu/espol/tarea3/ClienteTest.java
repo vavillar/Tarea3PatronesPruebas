@@ -5,6 +5,8 @@
  */
 package ec.edu.espol.tarea3;
 
+import ec.edu.espol.tarea3.estadosTipos.Resultado;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,12 +65,13 @@ public class ClienteTest {
     @Test
     public void testCrearReserva() {
         System.out.println("crearReserva");
-        ManejadorIncidenteStub manejadorStub = new ManejadorIncidenteStub(Resultado.RESUELTO);
-        Cliente cliente = new Cliente(manejadorStub);
-
-        Reserva reserva = cliente.crearReserva();
-        assertNotNull(reserva);
-        assertTrue(reserva.getPrecioTotal() > 0);
+        PaqueteBuilder builder = null;
+        Cliente instance = null;
+        Reserva expResult = null;
+        Reserva result = instance.crearReserva(builder);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -77,15 +80,26 @@ public class ClienteTest {
     @Test
     public void testReportarIncidente() {
         System.out.println("reportarIncidente");
-        ManejadorIncidenteStub manejadorStub = new ManejadorIncidenteStub(Resultado.RESUELTO);
-        Cliente cliente = new Cliente(manejadorStub);
+        String descripcion = "";
+        Cliente instance = null;
+        Resultado expResult = null;
+        Resultado result = instance.reportarIncidente(descripcion);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 
-        String descripcion = "Problema en la habitación";
-        Resultado resultado = cliente.reportarIncidente(descripcion);
-
-        assertEquals(Resultado.RESUELTO, resultado);
-        assertNotNull(manejadorStub.incidenteRecibido);
-        assertEquals(descripcion, manejadorStub.incidenteRecibido.getDescripcion());
+    /**
+     * Test of agregarObservador method, of class Cliente.
+     */
+    @Test
+    public void testAgregarObservador() {
+        System.out.println("agregarObservador");
+        ObservadorReserva observador = null;
+        Cliente instance = null;
+        instance.agregarObservador(observador);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }
