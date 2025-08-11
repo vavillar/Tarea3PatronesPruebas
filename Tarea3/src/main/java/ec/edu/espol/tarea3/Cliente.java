@@ -1,5 +1,7 @@
 package ec.edu.espol.tarea3;
 
+import ec.edu.espol.tarea3.estadosTipos.Resultado;
+
 public class Cliente {
     private ManejadorIncidente manejadorIncidentes;
 
