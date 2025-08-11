@@ -2,8 +2,10 @@ package ec.edu.espol.tarea3;
 
 public interface PaqueteBuilder {
     PaqueteBuilder agregarHabitacion(String numero, double precio);
-    PaqueteBuilder agregarPaseo(String nombre, double precio);
-    PaqueteBuilder agregarExtra(Componente extra);
-    Reserva construir();
 
+    PaqueteBuilder agregarPaseo(String nombre, double precio);
+
+    PaqueteBuilder agregarExtra(Componente extra);
+
+    Reserva construir(); // Ahora construye directamente la Reserva
 }

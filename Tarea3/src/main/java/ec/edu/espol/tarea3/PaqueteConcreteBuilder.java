@@ -2,6 +2,7 @@ package ec.edu.espol.tarea3;
 
 public class PaqueteConcreteBuilder implements PaqueteBuilder {
     private PaqueteCompuesto paquete = new PaqueteCompuesto();
+    
 
     @Override
     public PaqueteBuilder agregarHabitacion(String numero, double precio) {
