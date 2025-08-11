@@ -6,6 +6,7 @@
 package ec.edu.espol.tarea3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,6 +40,7 @@ public class DesayunoDecoratorTest {
     }
 
     @Test
+    @DisplayName("Debe sumar el precio base y el precio del desayuno correctamente")
     void testPrecioConDesayuno() {
         Componente base = new ComponenteStub(100.0, true);
         DesayunoDecorator desayuno = new DesayunoDecorator(base, 20.0);
@@ -46,6 +48,7 @@ public class DesayunoDecoratorTest {
     }
 
     @Test
+    @DisplayName("Debe delegar disponibilidad al componente base")
     void testPrecioConDesayunoCero() {
         Componente base = new ComponenteStub(80.0, true);
         DesayunoDecorator desayuno = new DesayunoDecorator(base, 0.0);
@@ -53,6 +56,7 @@ public class DesayunoDecoratorTest {
     }
 
     @Test
+    @DisplayName("Debe manejar el caso de precio negativo del desayuno")
     void testPrecioConDesayunoNegativo() {
         Componente base = new ComponenteStub(50.0, true);
         DesayunoDecorator desayuno = new DesayunoDecorator(base, -10.0);

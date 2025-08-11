@@ -1,67 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espol.tarea3;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+import java.lang.reflect.Field;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Victor
- */
-public class PaseoTest {
-    
-    public PaseoTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
+import ec.edu.espol.tarea3.estadosTipos.EstadoPaseo;
 
-    /**
-     * Test of precio method, of class Paseo.
-     */
+
+class PaseoTest {
+
     @Test
-    public void testPrecio() {
-        System.out.println("precio");
-        Paseo instance = null;
-        double expResult = 0.0;
-        double result = instance.precio();
-        assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("El precio debe coincidir con el valor pasado en el constructor")
+    void testPrecio() {
+        Paseo paseo = new Paseo("City Tour", 75.0);
+        assertEquals(75.0, paseo.precio(), 0.0001);
     }
 
-    /**
-     * Test of estaDisponible method, of class Paseo.
-     */
     @Test
-    public void testEstaDisponible() {
-        System.out.println("estaDisponible");
-        Paseo instance = null;
-        boolean expResult = false;
-        boolean result = instance.estaDisponible();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("Debe estar disponible por defecto")
+    void testDisponibilidadPorDefecto() {
+        Paseo paseo = new Paseo("City Tour", 75.0);
+        assertTrue(paseo.estaDisponible());
     }
-    
+
+    @Test
+    @DisplayName("Debe retornar false si el estado no es DISPONIBLE")
+    void testNoDisponible() throws Exception {
+        Paseo paseo = new Paseo("City Tour", 75.0);
+
+        // Usamos reflexión para cambiar el estado privado
+        Field estadoField = Paseo.class.getDeclaredField("estado");
+        estadoField.setAccessible(true);
+        estadoField.set(paseo, EstadoPaseo.NO_DISPONIBLE);
+
+        assertFalse(paseo.estaDisponible());
+    }
 }

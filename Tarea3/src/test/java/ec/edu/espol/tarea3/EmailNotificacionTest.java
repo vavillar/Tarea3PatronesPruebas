@@ -5,6 +5,7 @@
 package ec.edu.espol.tarea3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -38,6 +39,7 @@ public class EmailNotificacionTest {
     }
 
     @Test
+    @DisplayName("Debe imprimir mensaje correcto al actualizar")
     void testActualizarImprimeMensajeCorrecto() {
         EmailNotificacion email = new EmailNotificacion();
         ReservaStub reserva = new ReservaStub("R-123", "CONFIRMADA");

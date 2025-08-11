@@ -1,55 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espol.tarea3;
 
-import ec.edu.espol.tarea3.estadosTipos.Resultado;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Victor
- */
-public class HotelManejadorTest {
-    
-    public HotelManejadorTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
+import ec.edu.espol.tarea3.estadosTipos.Resultado;
 
-    /**
-     * Test of manejar method, of class HotelManejador.
-     */
+class HotelManejadorTest {
+
     @Test
-    public void testManejar() {
-        System.out.println("manejar");
-        Incidente incidente = null;
-        HotelManejador instance = new HotelManejador();
-        Resultado expResult = null;
-        Resultado result = instance.manejar(incidente);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("Debe resolver incidente si la descripción contiene 'habitación'")
+    void testManejarConHabitacion() {
+        HotelManejador manejador = new HotelManejador();
+        Incidente incidente = new Incidente("INC-1", "Problema con la habitación 101");
+
+        Resultado resultado = manejador.manejar(incidente);
+
+        assertEquals(Resultado.RESUELTO, resultado);
     }
-    
+
+    @Test
+    @DisplayName("Debe devolver NO_RESUELTO si no contiene 'habitación' y no hay siguiente manejador")
+    void testManejarSinHabitacionSinSiguiente() {
+        HotelManejador manejador = new HotelManejador();
+        Incidente incidente = new Incidente("INC-2", "Problema con el restaurante");
+
+        Resultado resultado = manejador.manejar(incidente);
+
+        assertEquals(Resultado.NO_RESUELTO, resultado);
+    }
+
+    @Test
+    @DisplayName("Debe delegar al siguiente manejador si no contiene 'habitación'")
+    void testManejarSinHabitacionConSiguiente() {
+        HotelManejador manejador = new HotelManejador();
+
+        // Siguiente manejador de prueba
+        ManejadorIncidente siguiente = new ManejadorIncidente() {
+            @Override
+            public Resultado manejar(Incidente incidente) {
+                return Resultado.RESUELTO;
+            }
+        };
+        manejador.setSiguiente(siguiente);
+
+        Incidente incidente = new Incidente("INC-3", "Problema con el restaurante");
+
+        Resultado resultado = manejador.manejar(incidente);
+
+        assertEquals(Resultado.RESUELTO, resultado);
+    }
 }

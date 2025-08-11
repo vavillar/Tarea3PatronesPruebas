@@ -1,53 +1,52 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espol.tarea3;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Victor
- */
-public class SpaDecoratorTest {
-    
-    public SpaDecoratorTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+class SpaDecoratorTest {
+
+    // Stub simple para Componente base
+    static class ComponenteStub implements Componente {
+        private final double precio;
+        private final boolean disponible;
+
+        ComponenteStub(double precio, boolean disponible) {
+            this.precio = precio;
+            this.disponible = disponible;
+        }
+
+        @Override
+        public double precio() {
+            return precio;
+        }
+
+        @Override
+        public boolean estaDisponible() {
+            return disponible;
+        }
     }
 
-    /**
-     * Test of precio method, of class SpaDecorator.
-     */
     @Test
-    public void testPrecio() {
-        System.out.println("precio");
-        SpaDecorator instance = null;
-        double expResult = 0.0;
-        double result = instance.precio();
-        assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("Debe sumar el precio base y el precio extra correctamente")
+    void testPrecioSumaCorrecta() {
+        Componente base = new ComponenteStub(100.0, true);
+        SpaDecorator spa = new SpaDecorator(base, 25.5);
+
+        assertEquals(125.5, spa.precio(), 0.0001);
     }
-    
+
+    @Test
+    @DisplayName("Debe delegar disponibilidad al componente base")
+    void testDisponibilidadDelegada() {
+        Componente baseDisponible = new ComponenteStub(100.0, true);
+        SpaDecorator spaDisponible = new SpaDecorator(baseDisponible, 20.0);
+        assertTrue(spaDisponible.estaDisponible());
+
+        Componente baseNoDisponible = new ComponenteStub(100.0, false);
+        SpaDecorator spaNoDisponible = new SpaDecorator(baseNoDisponible, 20.0);
+        assertFalse(spaNoDisponible.estaDisponible());
+    }
 }

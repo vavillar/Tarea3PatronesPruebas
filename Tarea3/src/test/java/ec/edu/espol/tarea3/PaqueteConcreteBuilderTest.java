@@ -1,102 +1,73 @@
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espol.tarea3;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-/**
- *
- * @author Victor
- */
-public class PaqueteConcreteBuilderTest {
-    
-    public PaqueteConcreteBuilderTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+class PaqueteConcreteBuilderTest {
+
+    // Stub para un componente extra controlado
+    static class ComponenteStub implements Componente {
+        private final double precio;
+        private final boolean disponible;
+
+        ComponenteStub(double precio, boolean disponible) {
+            this.precio = precio;
+            this.disponible = disponible;
+        }
+
+        @Override
+        public double precio() {
+            return precio;
+        }
+
+        @Override
+        public boolean estaDisponible() {
+            return disponible;
+        }
     }
 
-    /**
-     * Test of agregarHabitacion method, of class PaqueteConcreteBuilder.
-     */
     @Test
-    public void testAgregarHabitacion() {
-        System.out.println("agregarHabitacion");
-        String numero = "";
-        double precio = 0.0;
-        PaqueteConcreteBuilder instance = new PaqueteConcreteBuilder();
-        PaqueteBuilder expResult = null;
-        PaqueteBuilder result = instance.agregarHabitacion(numero, precio);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("Debe construir un paquete con habitación y paseo correctamente")
+    void testConstruirConHabitacionYPaseo() {
+        PaqueteConcreteBuilder builder = new PaqueteConcreteBuilder();
+        Reserva reserva = builder
+                .agregarHabitacion("101", 100.0)
+                .agregarPaseo("City Tour", 50.0)
+                .construir();
+
+        double precioEsperado = 100.0 + 50.0;
+        assertEquals(precioEsperado, reserva.getPaquete().precio(), 0.0001);
+        assertTrue(reserva.getPaquete().estaDisponible());
     }
 
-    /**
-     * Test of agregarPaseo method, of class PaqueteConcreteBuilder.
-     */
     @Test
-    public void testAgregarPaseo() {
-        System.out.println("agregarPaseo");
-        String nombre = "";
-        double precio = 0.0;
-        PaqueteConcreteBuilder instance = new PaqueteConcreteBuilder();
-        PaqueteBuilder expResult = null;
-        PaqueteBuilder result = instance.agregarPaseo(nombre, precio);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("Debe permitir agregar extras al paquete")
+    void testAgregarExtra() {
+        PaqueteConcreteBuilder builder = new PaqueteConcreteBuilder();
+        Componente extra = new ComponenteStub(30.0, true);
+
+        Reserva reserva = builder
+                .agregarExtra(extra)
+                .construir();
+
+        assertEquals(30.0, reserva.getPaquete().precio(), 0.0001);
+        assertTrue(reserva.getPaquete().estaDisponible());
     }
 
-    /**
-     * Test of agregarExtra method, of class PaqueteConcreteBuilder.
-     */
     @Test
-    public void testAgregarExtra() {
-        System.out.println("agregarExtra");
-        Componente extra = null;
-        PaqueteConcreteBuilder instance = new PaqueteConcreteBuilder();
-        PaqueteBuilder expResult = null;
-        PaqueteBuilder result = instance.agregarExtra(extra);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    @DisplayName("Debe reflejar disponibilidad falsa si un componente no está disponible")
+    void testDisponibilidadFalsaConExtraNoDisponible() {
+        PaqueteConcreteBuilder builder = new PaqueteConcreteBuilder();
+        Componente noDisponible = new ComponenteStub(40.0, false);
 
-    /**
-     * Test of construir method, of class PaqueteConcreteBuilder.
-     */
-    @Test
-    public void testConstruir() {
-        System.out.println("construir");
-        PaqueteConcreteBuilder instance = new PaqueteConcreteBuilder();
-        Reserva expResult = null;
-        Reserva result = instance.construir();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Reserva reserva = builder
+                .agregarHabitacion("102", 80.0)
+                .agregarExtra(noDisponible)
+                .construir();
+
+        assertFalse(reserva.getPaquete().estaDisponible());
     }
-    
 }
