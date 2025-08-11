@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Victor
  */
-public class ObservadorReservaTest {
+public class HabitacionTest {
     
-    public ObservadorReservaTest() {
+    public HabitacionTest() {
     }
     
     @BeforeAll
@@ -37,22 +37,31 @@ public class ObservadorReservaTest {
     }
 
     /**
-     * Test of actualizar method, of class ObservadorReserva.
+     * Test of precio method, of class Habitacion.
      */
     @Test
-    public void testActualizar() {
-        System.out.println("actualizar");
-        Reserva reserva = null;
-        ObservadorReserva instance = new ObservadorReservaImpl();
-        instance.actualizar(reserva);
+    public void testPrecio() {
+        System.out.println("precio");
+        Habitacion instance = null;
+        double expResult = 0.0;
+        double result = instance.precio();
+        assertEquals(expResult, result, 0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
-    public class ObservadorReservaImpl implements ObservadorReserva {
-
-        public void actualizar(Reserva reserva) {
-        }
+    /**
+     * Test of estaDisponible method, of class Habitacion.
+     */
+    @Test
+    public void testEstaDisponible() {
+        System.out.println("estaDisponible");
+        Habitacion instance = null;
+        boolean expResult = false;
+        boolean result = instance.estaDisponible();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }

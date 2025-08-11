@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Victor
  */
-public class ComponenteTest {
+public class PaqueteCompuestoTest {
     
-    public ComponenteTest() {
+    public PaqueteCompuestoTest() {
     }
     
     @BeforeAll
@@ -37,12 +37,25 @@ public class ComponenteTest {
     }
 
     /**
-     * Test of precio method, of class Componente.
+     * Test of agregar method, of class PaqueteCompuesto.
+     */
+    @Test
+    public void testAgregar() {
+        System.out.println("agregar");
+        Componente c = null;
+        PaqueteCompuesto instance = new PaqueteCompuesto();
+        instance.agregar(c);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of precio method, of class PaqueteCompuesto.
      */
     @Test
     public void testPrecio() {
         System.out.println("precio");
-        Componente instance = new ComponenteImpl();
+        PaqueteCompuesto instance = new PaqueteCompuesto();
         double expResult = 0.0;
         double result = instance.precio();
         assertEquals(expResult, result, 0);
@@ -51,28 +64,17 @@ public class ComponenteTest {
     }
 
     /**
-     * Test of estaDisponible method, of class Componente.
+     * Test of estaDisponible method, of class PaqueteCompuesto.
      */
     @Test
     public void testEstaDisponible() {
         System.out.println("estaDisponible");
-        Componente instance = new ComponenteImpl();
+        PaqueteCompuesto instance = new PaqueteCompuesto();
         boolean expResult = false;
         boolean result = instance.estaDisponible();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
-    }
-
-    public class ComponenteImpl implements Componente {
-
-        public double precio() {
-            return 0.0;
-        }
-
-        public boolean estaDisponible() {
-            return false;
-        }
     }
     
 }
