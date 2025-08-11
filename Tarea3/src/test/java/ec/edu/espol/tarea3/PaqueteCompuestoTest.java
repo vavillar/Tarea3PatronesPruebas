@@ -1,80 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espol.tarea3;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author Victor
- */
 public class PaqueteCompuestoTest {
     
-    public PaqueteCompuestoTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
-
-    /**
-     * Test of agregar method, of class PaqueteCompuesto.
-     */
     @Test
-    public void testAgregar() {
-        System.out.println("agregar");
-        Componente c = null;
-        PaqueteCompuesto instance = new PaqueteCompuesto();
-        instance.agregar(c);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of precio method, of class PaqueteCompuesto.
-     */
-    @Test
-    public void testPrecio() {
-        System.out.println("precio");
-        PaqueteCompuesto instance = new PaqueteCompuesto();
-        double expResult = 0.0;
-        double result = instance.precio();
-        assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of estaDisponible method, of class PaqueteCompuesto.
-     */
-    @Test
-    public void testEstaDisponible() {
-        System.out.println("estaDisponible");
-        PaqueteCompuesto instance = new PaqueteCompuesto();
-        boolean expResult = false;
-        boolean result = instance.estaDisponible();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("Agregar componente incrementa el tamaño de la lista")
+    void testAgregarComponente() {
+        PaqueteCompuesto paquete = new PaqueteCompuesto();
+        paquete.agregar(new Habitacion("201", 75.0));
+        assertEquals(1, paquete.getComponentes().size());
     }
     
+    @Test
+    @DisplayName("Precio total debe sumar correctamente los componentes")
+    void testPrecio() {
+        PaqueteCompuesto paquete = new PaqueteCompuesto();
+        paquete.agregar(new Habitacion("201", 75.0));
+        paquete.agregar(new Paseo("Tour", 30.0));
+        assertEquals(105.0, paquete.precio());
+    }
+    
+    @Test
+    @DisplayName("Paquete debe estar disponible si todos sus componentes lo están")
+    void testEstaDisponible() {
+        PaqueteCompuesto paquete = new PaqueteCompuesto();
+        paquete.agregar(new Habitacion("201", 75.0));
+        assertTrue(paquete.estaDisponible());
+    }
 }

@@ -1,7 +1,5 @@
 package ec.edu.espol.tarea3;
 
-import java.awt.Component;
-
 public abstract class ExtraDecorator implements Componente{
     protected Componente componente;
     public ExtraDecorator (Componente componente){
