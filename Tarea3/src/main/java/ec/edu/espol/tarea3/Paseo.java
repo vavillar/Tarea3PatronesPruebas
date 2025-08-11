@@ -1,8 +1,6 @@
 package ec.edu.espol.tarea3;
 
-import java.util.ArrayList;
-import java.util.List;
-import ec.edu.espol.tarea3.estadosTipos.*;
+import ec.edu.espol.tarea3.estadosTipos.EstadoPaseo;
 
 
 public class Paseo implements Componente {
