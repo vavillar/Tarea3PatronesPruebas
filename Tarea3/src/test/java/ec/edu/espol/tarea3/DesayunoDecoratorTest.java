@@ -1,15 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package ec.edu.espol.tarea3;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -20,34 +17,45 @@ public class DesayunoDecoratorTest {
     public DesayunoDecoratorTest() {
     }
     
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+    // Stub para Componente base
+    static class ComponenteStub implements Componente {
+        private final double precio;
+        private final boolean disponible;
+
+        public ComponenteStub(double precio, boolean disponible) {
+            this.precio = precio;
+            this.disponible = disponible;
+        }
+
+        @Override
+        public double precio() {
+            return precio;
+        }
+
+        @Override
+        public boolean estaDisponible() {
+            return disponible;
+        }
     }
 
-    /**
-     * Test of precio method, of class DesayunoDecorator.
-     */
     @Test
-    public void testPrecio() {
-        System.out.println("precio");
-        DesayunoDecorator instance = null;
-        double expResult = 0.0;
-        double result = instance.precio();
-        assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    void testPrecioConDesayuno() {
+        Componente base = new ComponenteStub(100.0, true);
+        DesayunoDecorator desayuno = new DesayunoDecorator(base, 20.0);
+        assertEquals(120.0, desayuno.precio());
     }
-    
+
+    @Test
+    void testPrecioConDesayunoCero() {
+        Componente base = new ComponenteStub(80.0, true);
+        DesayunoDecorator desayuno = new DesayunoDecorator(base, 0.0);
+        assertEquals(80.0, desayuno.precio());
+    }
+
+    @Test
+    void testPrecioConDesayunoNegativo() {
+        Componente base = new ComponenteStub(50.0, true);
+        DesayunoDecorator desayuno = new DesayunoDecorator(base, -10.0);
+        assertEquals(40.0, desayuno.precio());
+    }
 }
