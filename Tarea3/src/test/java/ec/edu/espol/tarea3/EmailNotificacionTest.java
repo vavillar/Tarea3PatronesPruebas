@@ -4,12 +4,8 @@
  */
 package ec.edu.espol.tarea3;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -36,8 +32,7 @@ public class EmailNotificacionTest {
             return id;
         }
 
-        @Override
-        public String getEstado() {
+        public String getEstadoo() {
             return estado;
         }
     }
