@@ -1,44 +1,12 @@
 package ec.edu.espol.tarea3;
 
-<<<<<<< Updated upstream
-import ec.edu.espol.tarea3.estadosTipos.EstadoReserva;
-=======
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
->>>>>>> Stashed changes
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-<<<<<<< Updated upstream
-public class ReservaTest {
-    
-    @Test
-    @DisplayName("Cambio de estado debe notificar a los observadores")
-    void testNotificacionObservadores() {
-        Reserva reserva = new Reserva(new PaqueteCompuesto());
-        TestObservador obs = new TestObservador();
-        reserva.agregarObservador(obs);
-        
-        reserva.setEstado(EstadoReserva.CONFIRMADA);
-        assertTrue(obs.fueNotificado());
-    }
-    
-    private static class TestObservador implements ObservadorReserva {
-        private boolean notificado = false;
-        
-        @Override
-        public void actualizar(Reserva reserva) {
-            this.notificado = true;
-        }
-        
-        public boolean fueNotificado() {
-            return notificado;
-        }
-    }
-}
-=======
 import ec.edu.espol.tarea3.estadosTipos.EstadoReserva;
 
 class ReservaTest {
@@ -82,4 +50,3 @@ class ReservaTest {
         assertEquals(reserva, observador.reservaRecibida);
     }
 }
->>>>>>> Stashed changes

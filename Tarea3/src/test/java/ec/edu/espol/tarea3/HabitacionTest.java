@@ -1,30 +1,11 @@
 package ec.edu.espol.tarea3;
 
-<<<<<<< Updated upstream
-=======
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
->>>>>>> Stashed changes
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-<<<<<<< Updated upstream
-public class HabitacionTest {
-    
-    @Test
-    @DisplayName("Precio de habitación debe coincidir con el valor asignado")
-    void testPrecio() {
-        Habitacion hab = new Habitacion("101", 50.0);
-        assertEquals(50.0, hab.precio());
-    }
-    
-    @Test
-    @DisplayName("Habitación nueva debe estar disponible")
-    void testEstaDisponible() {
-        Habitacion hab = new Habitacion("101", 50.0);
-        assertTrue(hab.estaDisponible());
-=======
 import ec.edu.espol.tarea3.estadosTipos.EstadoHabitacion;
 
 class HabitacionTest {
@@ -54,6 +35,5 @@ class HabitacionTest {
         campoEstado.set(habitacion, EstadoHabitacion.OCUPADA);
 
         assertFalse(habitacion.estaDisponible(), "La habitación ocupada no debería estar disponible");
->>>>>>> Stashed changes
     }
 }
