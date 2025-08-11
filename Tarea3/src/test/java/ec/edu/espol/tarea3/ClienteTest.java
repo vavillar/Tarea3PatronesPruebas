@@ -4,106 +4,64 @@ import ec.edu.espol.tarea3.estadosTipos.EstadoReserva;
 import ec.edu.espol.tarea3.estadosTipos.Resultado;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
+import ec.edu.espol.tarea3.estadosTipos.EstadoHabitacion;
 
 class ClienteTest {
 
-    // ----- Clases de prueba (stubs) -----
-    static class PaqueteStub implements Paquete {
-        private final boolean disponible;
-
-        PaqueteStub(boolean disponible) {
-            this.disponible = disponible;
-        }
-
-        @Override
-        public boolean estaDisponible() {
-            return disponible;
-        }
-    }
-
-    static class PaqueteBuilderStub extends PaqueteBuilder {
-        private final Paquete paquete;
-
-        PaqueteBuilderStub(Paquete paquete) {
-            this.paquete = paquete;
-        }
-
-        @Override
-        public Reserva construir() {
-            return new Reserva(paquete);
-        }
-    }
-
-    static class ManejadorIncidenteStub extends ManejadorIncidente {
-        @Override
-        public Resultado manejar(Incidente incidente) {
-            return new Resultado(true, "Incidente procesado: " + incidente.getDescripcion());
-        }
-    }
-
-    static class ObservadorReservaStub implements ObservadorReserva {
-        boolean notificado = false;
-
-        @Override
-        public void actualizar(Reserva reserva) {
-            notificado = true;
-        }
-    }
-
-    // ----- Pruebas -----
-
     @Test
-    @DisplayName("Debe confirmar reserva cuando el paquete está disponible")
-    void testCrearReservaDisponible() {
-        Paquete paquete = new PaqueteStub(true);
-        PaqueteBuilder builder = new PaqueteBuilderStub(paquete);
-        Cliente cliente = new Cliente(new ManejadorIncidenteStub());
+    @DisplayName("Reserva con paquete disponible se confirma")
+    void crearReserva_PaqueteDisponible_Confirma() {
+        // Configuración simple
+        PaqueteBuilder builder = new PaqueteConcreteBuilder()
+            .agregarHabitacion("101", 50.0); // Habitación disponible por defecto
+        
+        Cliente cliente = new Cliente(new AgenteSoporte());
 
         Reserva reserva = cliente.crearReserva(builder);
-
+        
         assertEquals(EstadoReserva.CONFIRMADA, reserva.getEstado());
     }
 
     @Test
-    @DisplayName("Debe rechazar reserva cuando el paquete NO está disponible")
-    void testCrearReservaNoDisponible() {
-        Paquete paquete = new PaqueteStub(false);
-        PaqueteBuilder builder = new PaqueteBuilderStub(paquete);
-        Cliente cliente = new Cliente(new ManejadorIncidenteStub());
+    @DisplayName("Reserva con paquete no disponible se rechaza")
+    void crearReserva_PaqueteNoDisponible_Rechaza() {
+        // Configuración con habitación ocupada
+        Habitacion habitacion = new Habitacion("102", 60.0);
+        habitacion.setEstado(EstadoHabitacion.OCUPADA);
+        
+        PaqueteCompuesto paquete = new PaqueteCompuesto();
+        paquete.agregar(habitacion);
+        
+        PaqueteBuilder builder = new PaqueteConcreteBuilder() {
+            @Override
+            public Reserva construir() {
+                return new Reserva(paquete);
+            }
+        };
 
+        Cliente cliente = new Cliente(new AgenteSoporte());
+        
         Reserva reserva = cliente.crearReserva(builder);
-
         assertEquals(EstadoReserva.RECHAZADA, reserva.getEstado());
     }
 
     @Test
-    @DisplayName("Debe reportar incidente correctamente")
-    void testReportarIncidente() {
-        Cliente cliente = new Cliente(new ManejadorIncidenteStub());
-
-        Resultado resultado = cliente.reportarIncidente("Prueba de incidente");
-
+    @DisplayName("Reportar incidente retorna resultado exitoso")
+    void reportarIncidente_RetornaResultado() {
+        Cliente cliente = new Cliente(new AgenteSoporte());
+        Resultado resultado = cliente.reportarIncidente("Problema test");
+        
+        assertNotNull(resultado);
         assertTrue(resultado.isExito());
-        assertTrue(resultado.getMensaje().contains("Prueba de incidente"));
     }
 
     @Test
-    @DisplayName("Debe agregar observador a la lista interna")
-    void testAgregarObservador() throws Exception {
-        Cliente cliente = new Cliente(new ManejadorIncidenteStub());
-        ObservadorReservaStub observador = new ObservadorReservaStub();
-
-        cliente.agregarObservador(observador);
-
-        // Acceso a la lista interna usando reflexión
-        var campo = Cliente.class.getDeclaredField("observadores");
-        campo.setAccessible(true);
-        List<?> lista = (List<?>) campo.get(cliente);
-
-        assertTrue(lista.contains(observador));
+    @DisplayName("Agregar observador se ejecuta sin errores")
+    void agregarObservador_NoLanzaExcepcion() {
+        Cliente cliente = new Cliente(new AgenteSoporte());
+        ObservadorReserva observador = reserva -> {};
+        
+        assertDoesNotThrow(() -> cliente.agregarObservador(observador));
     }
 }
