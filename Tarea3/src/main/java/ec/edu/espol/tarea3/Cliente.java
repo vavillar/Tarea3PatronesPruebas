@@ -3,8 +3,11 @@ package ec.edu.espol.tarea3;
 import java.util.ArrayList;
 import java.util.List;
 
-import ec.edu.espol.tarea3.estadosTipos.EstadoReserva;
-import ec.edu.espol.tarea3.estadosTipos.Resultado;
+import ec.edu.espol.tarea3.builder.*;
+import ec.edu.espol.tarea3.chainofresponsability.*;
+import ec.edu.espol.tarea3.estadosTipos.*;
+import ec.edu.espol.tarea3.observer.ObservadorReserva;
+
 
 public class Cliente {
     private final ManejadorIncidente manejadorIncidentes;
