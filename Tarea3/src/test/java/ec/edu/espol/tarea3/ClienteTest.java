@@ -53,7 +53,7 @@ class ClienteTest {
         Resultado resultado = cliente.reportarIncidente("Problema test");
         
         assertNotNull(resultado);
-        assertTrue(resultado.isExito());
+        assertTrue(resultado == Resultado.RESUELTO);
     }
 
     @Test

@@ -21,4 +21,8 @@ public class Habitacion implements Componente {
     public boolean estaDisponible() { 
         return estado == EstadoHabitacion.DISPONIBLE; 
     }
+
+    public void setEstado(EstadoHabitacion ocupada) {
+        this.estado = ocupada;
+    }
 }
