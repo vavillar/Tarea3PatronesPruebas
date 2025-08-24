@@ -5,7 +5,7 @@ public class HotelManejador extends ManejadorIncidente {
 
     @Override
     public Resultado manejar(Incidente incidente) {
-        if (incidente.getDescripcion().contains("habitación")) {
+        if (incidente.getDescripcion().gettext().contains("habitación")) {
             return Resultado.RESUELTO;
         }
         return siguiente != null ? siguiente.manejar(incidente) : Resultado.NO_RESUELTO;

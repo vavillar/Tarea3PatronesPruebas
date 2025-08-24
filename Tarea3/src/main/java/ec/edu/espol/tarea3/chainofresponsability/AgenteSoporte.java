@@ -6,7 +6,7 @@ public class AgenteSoporte extends ManejadorIncidente {
 
     @Override
     public Resultado manejar(Incidente incidente) {
-        if (incidente.getDescripcion().contains("simple")) {
+        if (incidente.getDescripcion().gettext().contains("simple")) {
             return Resultado.RESUELTO;
         }
         return siguiente != null ? siguiente.manejar(incidente) : Resultado.NO_RESUELTO;
