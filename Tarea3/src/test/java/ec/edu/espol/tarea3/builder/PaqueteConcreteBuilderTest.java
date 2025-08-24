@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ec.edu.espol.tarea3.composite.Componente;
 import ec.edu.espol.tarea3.composite.Habitacion;
 import ec.edu.espol.tarea3.estadosTipos.EstadoHabitacion;
 
@@ -28,7 +29,7 @@ class PaqueteConcreteBuilderTest {
             .agregarPaseo("Tour Playa", 20.0)
             .construir();
 
-        assertEquals(100.0, reserva.getPaquete().precio());
+        assertEquals(100.0, reserva.getPaquete().precio(), 0.001);
     }
 
     @Test
@@ -57,28 +58,32 @@ class PaqueteConcreteBuilderTest {
     @Test
     void testPaqueteVacio() {
         Reserva reserva = builder.construir();
-        assertEquals(0.0, reserva.getPaquete().precio());
+        assertEquals(0.0, reserva.getPaquete().precio(), 0.001);
         assertTrue(reserva.getPaquete().estaDisponible());
     }
 
     @Test
     void testAgregarComponenteNulo() {
+        Componente componente = null;
         assertThrows(NullPointerException.class, () -> 
-            builder.agregarExtra(null)
+            builder.agregarExtra(componente)
         );
     }
 
     @Test
     void testParametrosInvalidos() {
-        assertAll(
+        assertAll("Validación de parámetros",
             () -> assertThrows(IllegalArgumentException.class, () -> 
-                builder.agregarHabitacion("101", -50.0)
+                builder.agregarHabitacion("101", -50.0),
+                "Debe lanzar excepción con precio negativo"
             ),
             () -> assertThrows(NullPointerException.class, () -> 
-                builder.agregarHabitacion(null, 100.0)
+                builder.agregarHabitacion(null, 100.0),
+                "Debe lanzar excepción con número nulo"
             ),
             () -> assertThrows(NullPointerException.class, () -> 
-                builder.agregarPaseo(null, 50.0)
+                builder.agregarPaseo(null, 50.0),
+                "Debe lanzar excepción con nombre nulo"
             )
         );
     }
@@ -86,9 +91,9 @@ class PaqueteConcreteBuilderTest {
     @Test
     void testHabitacionDuplicada() {
         builder.agregarHabitacion("101", 100.0);
-        
         assertThrows(IllegalArgumentException.class, () -> 
-            builder.agregarHabitacion("101", 150.0)
+            builder.agregarHabitacion("101", 150.0),
+            "Debe lanzar excepción al agregar habitación duplicada"
         );
     }
 }

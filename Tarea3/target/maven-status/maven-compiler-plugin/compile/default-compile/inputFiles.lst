@@ -1,3 +1,4 @@
+C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\builder\Paquete.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\builder\PaqueteBuilder.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\builder\PaqueteConcreteBuilder.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\builder\Reserva.java
@@ -22,7 +23,10 @@ C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\estadosTipos\Resultado.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\estadosTipos\TipoEvento.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\estadosTipos\TipoHabitacion.java
+C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\IncidenteService.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\main.java
+C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\NotificadorReservas.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\observer\EmailNotificacion.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\observer\MovilNotificacion.java
 C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\observer\ObservadorReserva.java
+C:\Users\fierr\OneDrive\Documentos\GitHub\Tarea3PatronesPruebas\Tarea3\src\main\java\ec\edu\espol\tarea3\ReservaService.java
