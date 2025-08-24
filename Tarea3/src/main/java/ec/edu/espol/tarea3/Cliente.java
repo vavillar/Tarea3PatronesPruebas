@@ -1,43 +1,18 @@
 package ec.edu.espol.tarea3;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ec.edu.espol.tarea3.builder.*;
-import ec.edu.espol.tarea3.chainofresponsability.*;
-import ec.edu.espol.tarea3.estadosTipos.*;
-import ec.edu.espol.tarea3.observer.ObservadorReserva;
+import ec.edu.espol.tarea3.builder.Reserva;
+import ec.edu.espol.tarea3.estadosTipos.Resultado;
 
 
-public class Cliente {
-    private final ManejadorIncidente manejadorIncidentes;
-    private final List<ObservadorReserva> observadores;
+public final class Cliente {
+  private final ReservaService reservas;
+  private final IncidenteService incidentes;
 
-    public Cliente(ManejadorIncidente manejadorIncidentes) {
-        this.manejadorIncidentes = manejadorIncidentes;
-        this.observadores = new ArrayList<>();
-    }
-     //Reserva con estado CONFIRMADA o RECHAZADA
-    public Reserva crearReserva(PaqueteBuilder builder) {
-        Reserva reserva = builder.construir(); // Intenta construir
-        
-        // Verifica disponibilidad post-construcción
-        if (reserva.getPaquete().estaDisponible()) {
-            reserva.setEstado(EstadoReserva.CONFIRMADA);
-        } else {
-            reserva.setEstado(EstadoReserva.RECHAZADA);
-        }
-        
-        return reserva;
-    }
+  public Cliente(ReservaService reservas, IncidenteService incidentes){
+    this.reservas = reservas;
+    this.incidentes = incidentes;
+  }
 
-    public Resultado reportarIncidente(String descripcion) {
-        Incidente incidente = new Incidente("INC-" + System.currentTimeMillis(), descripcion);
-        return manejadorIncidentes.manejar(incidente);
-    }
-
-    public void agregarObservador(ObservadorReserva observador) {
-        observadores.add(observador);
-    }
-
+  public Reserva crearReserva(){ return reservas.crearYConfirmar(); }
+  public Resultado reportarIncidente(String descripcion){ return incidentes.reportar(descripcion); }
 }
