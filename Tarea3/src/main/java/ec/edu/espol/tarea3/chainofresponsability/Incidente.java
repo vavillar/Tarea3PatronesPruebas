@@ -1,9 +1,17 @@
 package ec.edu.espol.tarea3.chainofresponsability;
 
+import ec.edu.espol.tarea3.estadosTipos.EstadoIncidente;
+
 public class Incidente {
     
     private String id;
-    private String descripcion;
+    private DescripcionIncidente descripcion;
+    private EstadoIncidente estado = EstadoIncidente.ABIERTO;
+
+    public Incidente(String id, DescripcionIncidente descripcion) {
+        this.id = id;
+        this.descripcion = descripcion;
+    }
 
     public String getId() {
         return id;
@@ -12,18 +20,12 @@ public class Incidente {
     public void setId(String id) {
         this.id = id;
     }
-
-    public String getDescripcion() {
+    public DescripcionIncidente getDescripcion() {
         return descripcion;
     }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void cerrar() { 
+        this.estado = EstadoIncidente.CERRADO; 
     }
 
-    public Incidente(String id, String descripcion) {
-        this.id = id;
-        this.descripcion = descripcion;
-    }
 }
 

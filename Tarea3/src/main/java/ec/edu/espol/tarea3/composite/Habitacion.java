@@ -1,17 +1,18 @@
 
 package ec.edu.espol.tarea3.composite;
 
-import ec.edu.espol.tarea3.estadosTipos.*;
+import ec.edu.espol.tarea3.estadosTipos.EstadoHabitacion;
 
 public class Habitacion implements Componente {
-    private String numero;
+    private final String numero;
     private double precio;
-    private EstadoHabitacion estado;
+    private EstadoHabitacion estado = EstadoHabitacion.DISPONIBLE;
 
     public Habitacion(String numero, double precio) {
+        if (numero == null || numero.isBlank()) throw new IllegalArgumentException("número inválido");
+        if (precio < 0) throw new IllegalArgumentException("precio inválido");
         this.numero = numero;
         this.precio = precio;
-        this.estado = EstadoHabitacion.DISPONIBLE;
     }
 
     @Override
@@ -22,8 +23,22 @@ public class Habitacion implements Componente {
         return estado == EstadoHabitacion.DISPONIBLE; 
     }
 
-    public void setEstado(EstadoHabitacion ocupada) {
-        this.estado = ocupada;
+    public boolean reservar() {
+        if (!estaDisponible()) return false;
+        estado = EstadoHabitacion.OCUPADA;
+        return true;
+    }
+
+    public boolean ocupar() {
+        if (estado != EstadoHabitacion.OCUPADA) return false;
+        estado = EstadoHabitacion.OCUPADA;
+        return true;
+    }
+
+    public boolean liberar() {
+        if (estado != EstadoHabitacion.OCUPADA && estado != EstadoHabitacion.OCUPADA) return false;
+        estado = EstadoHabitacion.DISPONIBLE;
+        return true;
     }
 
     public String getNumero() {

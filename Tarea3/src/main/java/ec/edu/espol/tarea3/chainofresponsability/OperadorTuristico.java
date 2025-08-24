@@ -5,7 +5,7 @@ public class OperadorTuristico extends ManejadorIncidente {
 
     @Override
     public Resultado manejar(Incidente incidente) {
-        if (incidente.getDescripcion().contains("tour")) {
+        if (incidente.getDescripcion().gettext().contains("tour")) {
             return Resultado.RESUELTO;
         }
         return Resultado.ESCALADO;
