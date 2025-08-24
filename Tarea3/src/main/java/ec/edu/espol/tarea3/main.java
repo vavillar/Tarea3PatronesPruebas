@@ -1,24 +1,31 @@
 package ec.edu.espol.tarea3;
 
-import ec.edu.espol.tarea3.builder.*;
-import ec.edu.espol.tarea3.chainofresponsability.*;
+import ec.edu.espol.tarea3.builder.PaqueteBuilder;
+import ec.edu.espol.tarea3.builder.PaqueteConcreteBuilder;
+import ec.edu.espol.tarea3.builder.Reserva;
+import ec.edu.espol.tarea3.chainofresponsability.AgenteSoporte;
+import ec.edu.espol.tarea3.chainofresponsability.HotelManejador;
+import ec.edu.espol.tarea3.chainofresponsability.ManejadorIncidente;
+import ec.edu.espol.tarea3.composite.PaqueteCompuesto;
 import ec.edu.espol.tarea3.estadosTipos.Resultado;
+
 public class main {
     public static void main(String[] args) {
         ManejadorIncidente manejador = new AgenteSoporte();
         ManejadorIncidente siguiente = new HotelManejador();
         manejador.setSiguiente(siguiente);
-
-        // 2. Crear cliente
-        Cliente cliente = new Cliente(manejador);
-
+        
         // 3. Construir paquete personalizado
         PaqueteBuilder builder = new PaqueteConcreteBuilder()
             .agregarHabitacion("201", 100.0)
             .agregarPaseo("Tour Gastronómico", 60.0);
 
+        // 2. Crear cliente
+        Cliente cliente = new Cliente(new ReservaService(builder), new IncidenteService(manejador));
+
         // 4. Intentar reserva
-        Reserva reserva = cliente.crearReserva(builder);
+        PaqueteCompuesto paquete = builder.construir().getPaquete();
+        Reserva reserva = cliente.crearReserva();
 
         // 5. Procesar resultado
         switch(reserva.getEstado()) {
