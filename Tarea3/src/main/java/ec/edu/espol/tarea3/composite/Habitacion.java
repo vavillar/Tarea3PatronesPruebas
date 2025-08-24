@@ -60,4 +60,7 @@ public class Habitacion implements Componente {
     public EstadoHabitacion getEstado() {
         return estado;
     }
+    public void setEstado(EstadoHabitacion estado) {
+        this.estado = estado;
+    }
 }
