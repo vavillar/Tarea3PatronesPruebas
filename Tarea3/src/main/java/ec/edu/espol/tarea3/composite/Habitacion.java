@@ -45,10 +45,6 @@ public class Habitacion implements Componente {
         return numero;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
     public double getPrecio() {
         return precio;
     }
