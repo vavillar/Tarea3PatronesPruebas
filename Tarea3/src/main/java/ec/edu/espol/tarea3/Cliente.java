@@ -3,11 +3,9 @@ package ec.edu.espol.tarea3;
 import java.util.ArrayList;
 import java.util.List;
 
-import ec.edu.espol.tarea3.builder.PaqueteBuilder;
-import ec.edu.espol.tarea3.builder.Reserva;
-import ec.edu.espol.tarea3.chainofresponsability.Incidente;
-import ec.edu.espol.tarea3.chainofresponsability.ManejadorIncidente;
-import ec.edu.espol.tarea3.estadosTipos.Resultado;
+import ec.edu.espol.tarea3.builder.*;
+import ec.edu.espol.tarea3.chainofresponsability.*;
+import ec.edu.espol.tarea3.estadosTipos.*;
 import ec.edu.espol.tarea3.observer.ObservadorReserva;
 
 
@@ -22,7 +20,14 @@ public class Cliente {
      //Reserva con estado CONFIRMADA o RECHAZADA
     public Reserva crearReserva(PaqueteBuilder builder) {
         Reserva reserva = builder.construir(); // Intenta construir
-        reserva.confirmarSegunDisponibilidad();
+        
+        // Verifica disponibilidad post-construcción
+        if (reserva.getPaquete().estaDisponible()) {
+            reserva.setEstado(EstadoReserva.CONFIRMADA);
+        } else {
+            reserva.setEstado(EstadoReserva.RECHAZADA);
+        }
+        
         return reserva;
     }
 
