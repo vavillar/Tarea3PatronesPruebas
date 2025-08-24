@@ -1,93 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espol.tarea3.chainofresponsability;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 
-/**
- *
- * @author Victor
- */
 public class IncidenteTest {
-    
-    public IncidenteTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+
+    @Test
+    @DisplayName("INC-01: Constructor con valores válidos debe crear instancia correctamente")
+    public void testConstructorValidos() {
+        Incidente incidente = new Incidente("INC-001", "Problema con la habitación");
+        
+        assertEquals("INC-001", incidente.getId());
+        assertEquals("Problema con la habitación", incidente.getDescripcion());
     }
 
-    /**
-     * Test of getId method, of class Incidente.
-     */
     @Test
-    public void testGetId() {
-        System.out.println("getId");
-        Incidente instance = null;
-        String expResult = "";
-        String result = instance.getId();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("INC-02: Constructor con ID nulo debe lanzar excepción")
+    public void testConstructorIdNulo() {
+        assertThrows(NullPointerException.class, () -> {
+            new Incidente(null, "Problema con la habitación");
+        });
     }
 
-    /**
-     * Test of setId method, of class Incidente.
-     */
     @Test
-    public void testSetId() {
-        System.out.println("setId");
-        String id = "";
-        Incidente instance = null;
-        instance.setId(id);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("INC-03: Constructor con descripción nula debe lanzar excepción")
+    public void testConstructorDescripcionNula() {
+        assertThrows(NullPointerException.class, () -> {
+            new Incidente("INC-001", null);
+        });
     }
 
-    /**
-     * Test of getDescripcion method, of class Incidente.
-     */
     @Test
-    public void testGetDescripcion() {
-        System.out.println("getDescripcion");
-        Incidente instance = null;
-        String expResult = "";
-        String result = instance.getDescripcion();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("INC-04: Setter de ID con valor nulo debe lanzar excepción")
+    public void testSetterIdNulo() {
+        Incidente incidente = new Incidente("INC-001", "Problema test");
+        
+        assertThrows(NullPointerException.class, () -> {
+            incidente.setId(null);
+        });
     }
 
-    /**
-     * Test of setDescripcion method, of class Incidente.
-     */
     @Test
-    public void testSetDescripcion() {
-        System.out.println("setDescripcion");
-        String descripcion = "";
-        Incidente instance = null;
-        instance.setDescripcion(descripcion);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("INC-05: Setter de descripción con valor nulo debe lanzar excepción")
+    public void testSetterDescripcionNula() {
+        Incidente incidente = new Incidente("INC-001", "Problema test");
+        
+        assertThrows(NullPointerException.class, () -> {
+            incidente.setDescripcion(null);
+        });
     }
-    
 }

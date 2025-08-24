@@ -25,4 +25,24 @@ public class Habitacion implements Componente {
     public void setEstado(EstadoHabitacion ocupada) {
         this.estado = ocupada;
     }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public EstadoHabitacion getEstado() {
+        return estado;
+    }
 }

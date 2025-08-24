@@ -1,53 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espol.tarea3.decorator;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import ec.edu.espol.tarea3.composite.*;
 
-/**
- *
- * @author Victor
- */
 public class DesayunoDecoratorTest {
-    
-    public DesayunoDecoratorTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+
+    @Test
+    @DisplayName("DES-01: Componente nulo debe lanzar excepción")
+    public void testComponenteNulo() {
+        assertThrows(NullPointerException.class, () -> {
+            new DesayunoDecorator(null, 15.0);
+        });
     }
 
-    /**
-     * Test of precio method, of class DesayunoDecorator.
-     */
     @Test
-    public void testPrecio() {
-        System.out.println("precio");
-        DesayunoDecorator instance = null;
-        double expResult = 0.0;
-        double result = instance.precio();
-        assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("DES-02: Precio extra negativo debe lanzar excepción")
+    public void testPrecioExtraNegativo() {
+        Componente habitacion = new Habitacion("101", 100.0);
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            new DesayunoDecorator(habitacion, -10.0);
+        });
     }
-    
+
+    @Test
+    @DisplayName("DES-03: Precio extra Double.MAX_VALUE debe lanzar excepción")
+    public void testPrecioExtraMaxValue() {
+        Componente habitacion = new Habitacion("102", 100.0);
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            new DesayunoDecorator(habitacion, Double.MAX_VALUE);
+        });
+    }
 }

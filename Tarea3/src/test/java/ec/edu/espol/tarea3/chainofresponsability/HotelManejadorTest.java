@@ -1,55 +1,49 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espol.tarea3.chainofresponsability;
 
-import ec.edu.espol.tarea3.estadosTipos.Resultado;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import ec.edu.espol.tarea3.estadosTipos.*;
 
-/**
- *
- * @author Victor
- */
 public class HotelManejadorTest {
-    
-    public HotelManejadorTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
+
+    @Test
+    @DisplayName("HOT-01: Debe resolver incidente con palabra clave 'habitación'")
+    public void testManejarIncidenteHabitacion() {
+        HotelManejador manejador = new HotelManejador();
+        Incidente incidente = new Incidente("INC-001", "Problema con la habitación 101");
+        
+        Resultado resultado = manejador.manejar(incidente);
+        
+        assertEquals(Resultado.RESUELTO, resultado);
     }
 
-    /**
-     * Test of manejar method, of class HotelManejador.
-     */
     @Test
-    public void testManejar() {
-        System.out.println("manejar");
-        Incidente incidente = null;
-        HotelManejador instance = new HotelManejador();
-        Resultado expResult = null;
-        Resultado result = instance.manejar(incidente);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @DisplayName("HOT-02: Debe escalar incidente sin palabra clave 'habitación'")
+    public void testManejarIncidenteNoHabitacion() {
+        HotelManejador manejador = new HotelManejador();
+        // Configurar siguiente manejador
+        OperadorTuristico siguiente = new OperadorTuristico();
+        manejador.setSiguiente(siguiente);
+        
+        Incidente incidente = new Incidente("INC-002", "Problema con el restaurante");
+        
+        Resultado resultado = manejador.manejar(incidente);
+        
+        // El manejador hotel no puede manejar este incidente, lo pasa al siguiente
+        assertNotEquals(Resultado.RESUELTO, resultado);
     }
-    
+
+    @Test
+    @DisplayName("HOT-03: Debe retornar NO_RESUELTO si no hay siguiente manejador")
+    public void testManejarSinSiguienteManejador() {
+        HotelManejador manejador = new HotelManejador();
+        // No configurar siguiente manejador
+        
+        Incidente incidente = new Incidente("INC-003", "Problema con el servicio de limpieza");
+        
+        Resultado resultado = manejador.manejar(incidente);
+        
+        assertEquals(Resultado.NO_RESUELTO, resultado);
+    }
 }
