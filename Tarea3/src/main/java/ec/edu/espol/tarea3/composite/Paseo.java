@@ -8,6 +8,22 @@ public class Paseo implements Componente {
     private double precio;
     private EstadoPaseo estado;
 
+    public EstadoPaseo getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoPaseo estado) {
+        this.estado = estado;
+    }
+
+    
+        public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
     public Paseo(String nombre, double precio) {
         this.nombre = nombre;
         this.precio = precio;
@@ -20,5 +36,9 @@ public class Paseo implements Componente {
     @Override
     public boolean estaDisponible() { 
         return estado == EstadoPaseo.DISPONIBLE; 
+    }
+
+    public Object getNombre() {
+        return this.nombre;
     }
 }

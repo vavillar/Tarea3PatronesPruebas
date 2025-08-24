@@ -40,4 +40,24 @@ public class Habitacion implements Componente {
         estado = EstadoHabitacion.DISPONIBLE;
         return true;
     }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public EstadoHabitacion getEstado() {
+        return estado;
+    }
 }

@@ -34,12 +34,6 @@ public class Reserva {
             obs.actualizar(this);
         }
     }
-    // Método para confirmar reserva según disponibilidad del paquete
-    public void confirmarSegunDisponibilidad() {
-        this.estado = paquete.estaDisponible()
-                ? EstadoReserva.CONFIRMADA
-                : EstadoReserva.RECHAZADA;
-    }
 
     // Getters
     public String getId() { return id; }
