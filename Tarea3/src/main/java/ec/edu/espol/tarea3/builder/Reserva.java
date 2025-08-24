@@ -34,6 +34,11 @@ public class Reserva {
             obs.actualizar(this);
         }
     }
+    public void confirmarSegunDisponibilidad() {
+        this.estado = paquete.estaDisponible()
+                ? EstadoReserva.CONFIRMADA
+                : EstadoReserva.RECHAZADA;
+    }
 
     // Getters
     public String getId() { return id; }
