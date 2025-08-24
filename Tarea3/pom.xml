@@ -28,6 +28,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>24</maven.compiler.release>
-        <exec.mainClass>ec.edu.espol.tarea3.Tarea3</exec.mainClass>
+        <exec.mainClass>ec.edu.espol.tarea3.main</exec.mainClass>
     </properties>
 </project>
